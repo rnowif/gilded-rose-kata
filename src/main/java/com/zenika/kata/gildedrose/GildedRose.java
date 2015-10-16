@@ -36,9 +36,9 @@ public class GildedRose {
                 }
             } else {
                 if (item.sellIn < 0) {
-                    decrementQuality(item, 2);
+                    incrementQuality(item, -2);
                 } else {
-                    decrementQuality(item, 1);
+                    incrementQuality(item, -1);
                 }
             }
 
@@ -49,10 +49,6 @@ public class GildedRose {
 
     private void decrementSellIn(Item item) {
         item.sellIn = item.sellIn - 1;
-    }
-
-    private void decrementQuality(Item item, int delta) {
-        item.quality = item.quality - delta;
     }
 
     private void incrementQuality(Item item, int delta) {
