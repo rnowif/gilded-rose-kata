@@ -30,9 +30,7 @@ public class GildedRose {
                     }
                 }
             } else {
-                if (item.quality > 0) {
-                    item.quality = item.quality - 1;
-                }
+                item.quality = item.quality - 1;
             }
 
             item.sellIn = item.sellIn - 1;
@@ -44,14 +42,13 @@ public class GildedRose {
                     if (item.name.equals(BACKSTAGE_PASS_NAME)) {
                         item.quality = 0;
                     } else {
-                        if (item.quality > 0) {
-                            item.quality = item.quality - 1;
-                        }
+                        item.quality = item.quality - 1;
                     }
                 }
             }
 
             item.quality = Math.min(item.quality, 50);
+            item.quality = Math.max(item.quality, 0);
         }
     }
 }
