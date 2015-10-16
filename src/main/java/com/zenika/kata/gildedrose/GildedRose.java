@@ -20,28 +20,25 @@ public class GildedRose {
             decrementSellIn(item);
 
             if (item.name.equals(BACKSTAGE_PASS_NAME)) {
-                incrementQuality(item);
-
-                if (item.sellIn <= 11) {
-                    incrementQuality(item);
-                }
-
-                if (item.sellIn <= 6) {
-                    incrementQuality(item);
-                }
-            } else if (item.name.equals(AGED_BRIE_NAME)) {
-                incrementQuality(item);
-            } else {
-                decrementQuality(item);
-            }
-
-            if (item.sellIn < 0) {
-                if (item.name.equals(AGED_BRIE_NAME)) {
-                    incrementQuality(item);
-                } else if (item.name.equals(BACKSTAGE_PASS_NAME)) {
+                if (item.sellIn < 0) {
                     item.quality = 0;
+                } else if (item.sellIn <= 6) {
+                    incrementQuality(item, 3);
+                }  else if (item.sellIn <= 11) {
+                    incrementQuality(item, 2);
+                }
+
+            } else if (item.name.equals(AGED_BRIE_NAME)) {
+                if (item.sellIn < 0) {
+                    incrementQuality(item, 2);
                 } else {
-                    decrementQuality(item);
+                    incrementQuality(item, 1);
+                }
+            } else {
+                if (item.sellIn < 0) {
+                    decrementQuality(item, 2);
+                } else {
+                    decrementQuality(item, 1);
                 }
             }
 
@@ -54,12 +51,12 @@ public class GildedRose {
         item.sellIn = item.sellIn - 1;
     }
 
-    private void decrementQuality(Item item) {
-        item.quality = item.quality - 1;
+    private void decrementQuality(Item item, int delta) {
+        item.quality = item.quality - delta;
     }
 
-    private void incrementQuality(Item item) {
-        item.quality = item.quality + 1;
+    private void incrementQuality(Item item, int delta) {
+        item.quality = item.quality + delta;
     }
 }
 
