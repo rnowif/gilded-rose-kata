@@ -17,23 +17,23 @@ public class GildedRose {
                 continue;
             }
 
-            if (item.name.equals(AGED_BRIE_NAME) || item.name.equals(BACKSTAGE_PASS_NAME)) {
+            decrementSellIn(item);
+
+            if (item.name.equals(BACKSTAGE_PASS_NAME)) {
                 incrementQuality(item);
 
-                if (item.name.equals(BACKSTAGE_PASS_NAME)) {
-                    if (item.sellIn < 11) {
-                        incrementQuality(item);
-                    }
-
-                    if (item.sellIn < 6) {
-                        incrementQuality(item);
-                    }
+                if (item.sellIn <= 11) {
+                    incrementQuality(item);
                 }
+
+                if (item.sellIn <= 6) {
+                    incrementQuality(item);
+                }
+            } else if (item.name.equals(AGED_BRIE_NAME)) {
+                incrementQuality(item);
             } else {
                 decrementQuality(item);
             }
-
-            decrementSellIn(item);
 
             if (item.sellIn < 0) {
                 if (item.name.equals(AGED_BRIE_NAME)) {
