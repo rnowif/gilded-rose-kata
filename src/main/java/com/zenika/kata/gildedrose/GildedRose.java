@@ -18,31 +18,31 @@ public class GildedRose {
             }
 
             if (item.name.equals(AGED_BRIE_NAME) || item.name.equals(BACKSTAGE_PASS_NAME)) {
-                item.quality = item.quality + 1;
+                incrementQuality(item);
 
                 if (item.name.equals(BACKSTAGE_PASS_NAME)) {
                     if (item.sellIn < 11) {
-                        item.quality = item.quality + 1;
+                        incrementQuality(item);
                     }
 
                     if (item.sellIn < 6) {
-                        item.quality = item.quality + 1;
+                        incrementQuality(item);
                     }
                 }
             } else {
-                item.quality = item.quality - 1;
+                decrementQuality(item);
             }
 
-            item.sellIn = item.sellIn - 1;
+            decrementSellIn(item);
 
             if (item.sellIn < 0) {
                 if (item.name.equals(AGED_BRIE_NAME)) {
-                    item.quality = item.quality + 1;
+                    incrementQuality(item);
                 } else {
                     if (item.name.equals(BACKSTAGE_PASS_NAME)) {
                         item.quality = 0;
                     } else {
-                        item.quality = item.quality - 1;
+                        decrementQuality(item);
                     }
                 }
             }
@@ -50,6 +50,18 @@ public class GildedRose {
             item.quality = Math.min(item.quality, 50);
             item.quality = Math.max(item.quality, 0);
         }
+    }
+
+    private void decrementSellIn(Item item) {
+        item.sellIn = item.sellIn - 1;
+    }
+
+    private void decrementQuality(Item item) {
+        item.quality = item.quality - 1;
+    }
+
+    private void incrementQuality(Item item) {
+        item.quality = item.quality + 1;
     }
 }
 
