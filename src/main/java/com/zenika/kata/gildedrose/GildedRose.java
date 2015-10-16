@@ -17,19 +17,16 @@ public class GildedRose {
                 continue;
             }
 
-            if (item.name.equals(AGED_BRIE_NAME)
-                    || item.name.equals(BACKSTAGE_PASS_NAME)) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
+            if (item.name.equals(AGED_BRIE_NAME) || item.name.equals(BACKSTAGE_PASS_NAME)) {
+                item.quality = item.quality + 1;
 
-                    if (item.name.equals(BACKSTAGE_PASS_NAME)) {
-                        if (item.sellIn < 11 && item.quality < 50) {
-                            item.quality = item.quality + 1;
-                        }
+                if (item.name.equals(BACKSTAGE_PASS_NAME)) {
+                    if (item.sellIn < 11) {
+                        item.quality = item.quality + 1;
+                    }
 
-                        if (item.sellIn < 6 && item.quality < 50) {
-                            item.quality = item.quality + 1;
-                        }
+                    if (item.sellIn < 6) {
+                        item.quality = item.quality + 1;
                     }
                 }
             } else {
@@ -42,20 +39,19 @@ public class GildedRose {
 
             if (item.sellIn < 0) {
                 if (item.name.equals(AGED_BRIE_NAME)) {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
-                    }
+                    item.quality = item.quality + 1;
                 } else {
                     if (item.name.equals(BACKSTAGE_PASS_NAME)) {
                         item.quality = 0;
                     } else {
                         if (item.quality > 0) {
-
                             item.quality = item.quality - 1;
                         }
                     }
                 }
             }
+
+            item.quality = Math.min(item.quality, 50);
         }
     }
 }
